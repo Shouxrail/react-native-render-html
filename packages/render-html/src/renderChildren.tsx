@@ -4,6 +4,8 @@ import TNodeRenderer from './TNodeRenderer';
 import { TChildrenRendererProps } from './shared-types';
 import collapseTopMarginForChild from './helpers/collapseTopMarginForChild';
 
+const empty = {};
+
 const mapCollapsibleChildren = (
   propsForChildren: TChildrenRendererProps['propsForChildren'],
   renderChild: TChildrenRendererProps['renderChild'],
@@ -37,7 +39,7 @@ const mapCollapsibleChildren = (
 
 export default function renderChildren({
   tchildren,
-  propsForChildren = {},
+  propsForChildren = empty,
   disableMarginCollapsing,
   renderChild
 }: TChildrenRendererProps): ReactElement {

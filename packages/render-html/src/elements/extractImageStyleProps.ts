@@ -6,11 +6,7 @@ import pick from 'ramda/src/pick';
 const extractProps = pick<keyof ImageStyle>([
   'resizeMode',
   'tintColor',
-  'overlayColor',
-  'borderBottomLeftRadius',
-  'borderBottomRightRadius',
-  'borderTopLeftRadius',
-  'borderTopRightRadius'
+  'overlayColor'
 ]);
 
 function mapObjectFit(objectFit: WebBlockStyles['objectFit']) {

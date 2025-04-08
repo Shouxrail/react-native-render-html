@@ -146,52 +146,6 @@ export interface ListElementConfig {
 }
 
 /**
- * Configuration for img.
- *
- * @public
- */
-export interface ImgElementConfig {
-  /**
-   * Support for relative percent-widths.
-   *
-   * @defaultValue false
-   */
-  enableExperimentalPercentWidth?: boolean;
-  /**
-   * Default width and height to display while image's dimensions are being retrieved.
-   *
-   * @remarks Changes to this prop will cause a react tree update. Always
-   * memoize it.
-   */
-  initialDimensions?: ImageDimensions;
-}
-
-/**
- * Configuration for a.
- *
- * @public
- */
-export interface AElementConfig {
-  /**
-   * A callback to handle anchors presses.
-   *
-   * @remarks The `href` argument has been normalized, see {@link useNormalizedUrl}.
-   *
-   * @defaultValue A function using React Native `Linking.onpenUrl`.
-   * @param event - The {@link GestureResponderEvent} event.
-   * @param href - The normalized href, see {@link useNormalizedUrl}.
-   * @param htmlAttribs - The attributes of the underlying {@link Element}.
-   * @param target - The normalized `target` for this hyperlink.
-   */
-  onPress?: (
-    event: GestureResponderEvent,
-    href: string,
-    htmlAttribs: Record<string, string>,
-    target: '_blank' | '_self' | '_parent' | '_top'
-  ) => void;
-}
-
-/**
  * Props for custom renderers. The convention is to declare a field per tag name.
  * In doing so, you can benefit from `useRendererProps('tagname')` in custom renderers.
  *
@@ -209,8 +163,40 @@ export interface AElementConfig {
  * @public
  */
 export interface RenderersProps extends Record<string, any> {
-  a: AElementConfig;
-  img: ImgElementConfig;
+  a: {
+    /**
+     * A callback to handle anchors presses.
+     *
+     * @remarks The `href` argument has been normalized, see {@link useNormalizedUrl}.
+     *
+     * @defaultValue A function using React Native `Linking.onpenUrl`.
+     * @param event - The {@link GestureResponderEvent} event.
+     * @param href - The normalized href, see {@link useNormalizedUrl}.
+     * @param htmlAttribs - The attributes of the underlying {@link Element}.
+     * @param target - The normalized `target` for this hyperlink.
+     */
+    onPress?: (
+      event: GestureResponderEvent,
+      href: string,
+      htmlAttribs: Record<string, string>,
+      target: '_blank' | '_self' | '_parent' | '_top'
+    ) => void;
+  };
+  img: {
+    /**
+     * Support for relative percent-widths.
+     *
+     * @defaultValue false
+     */
+    enableExperimentalPercentWidth?: boolean;
+    /**
+     * Default width and height to display while image's dimensions are being retrieved.
+     *
+     * @remarks Changes to this prop will cause a react tree update. Always
+     * memoize it.
+     */
+    initialDimensions?: ImageDimensions;
+  };
   ol: ListElementConfig;
   ul: ListElementConfig;
 }

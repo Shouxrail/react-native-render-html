@@ -128,6 +128,7 @@ export {
 export { default as TNodeRenderer } from './TNodeRenderer';
 export {
   default as TRenderEngineProvider,
+  defaultFallbackFonts,
   useAmbientTRenderEngine
 } from './TRenderEngineProvider';
 export { default as RenderHTMLConfigProvider } from './RenderHTMLConfigProvider';

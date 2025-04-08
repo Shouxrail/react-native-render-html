@@ -100,10 +100,6 @@ function useFetchedNaturalDimensions(props: {
   };
 }
 
-function identity(arg: any) {
-  return arg;
-}
-
 /**
  * This hook will compute concrete dimensions from image natural dimensions and
  * constraints. It will fetch the image and get its dimensions.
@@ -120,7 +116,7 @@ export default function useIMGElementState(
     altColor,
     source,
     contentWidth,
-    computeMaxWidth = identity,
+    computeMaxWidth,
     objectFit,
     initialDimensions = defaultImageInitialDimensions,
     cachedNaturalDimensions

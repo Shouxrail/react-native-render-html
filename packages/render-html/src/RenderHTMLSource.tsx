@@ -1,6 +1,7 @@
 import equals from 'ramda/src/equals';
 import React, { memo, ReactElement, useMemo } from 'react';
 import { Dimensions } from 'react-native';
+import PropTypes from 'prop-types';
 import ttreeEventsContext from './context/ttreeEventsContext';
 import isUriSource from './helpers/isUriSource';
 import { SourceLoaderProps, TTreeEvents } from './internal-types';
@@ -18,6 +19,34 @@ import debugMessage from './debugMessages';
 import contentWidthContext from './context/contentWidthContext';
 import isDomSource from './helpers/isDomSource';
 import useProfiler from './hooks/useProfiler';
+
+export type RenderHTMLSourcePropTypes = Record<
+  keyof RenderHTMLSourceProps,
+  any
+>;
+
+export const renderSourcePropTypes: RenderHTMLSourcePropTypes = {
+  source: PropTypes.oneOfType([
+    PropTypes.shape({
+      html: PropTypes.string.isRequired,
+      baseUrl: PropTypes.string
+    }),
+    PropTypes.shape({
+      dom: PropTypes.object.isRequired,
+      baseUrl: PropTypes.string
+    }),
+    PropTypes.shape({
+      uri: PropTypes.string.isRequired,
+      method: PropTypes.string,
+      body: PropTypes.any,
+      headers: PropTypes.object
+    })
+  ]),
+  onTTreeChange: PropTypes.func,
+  onHTMLLoaded: PropTypes.func,
+  onDocumentMetadataLoaded: PropTypes.func,
+  contentWidth: PropTypes.number
+};
 
 function isEmptySource(source: undefined | HTMLSource) {
   return (
@@ -106,5 +135,10 @@ const RenderHTMLSource = memo(
     return shallowEqual(prevSource, currSource) && shallowEqual(prev, curr);
   }
 );
+
+/**
+ * @ignore
+ */
+(RenderHTMLSource as any).propTypes = renderSourcePropTypes;
 
 export default RenderHTMLSource;

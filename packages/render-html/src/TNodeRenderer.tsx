@@ -41,18 +41,21 @@ function isGhostTNode(tnode: TNode) {
 /**
  * A component to render any {@link TNode}.
  */
-const TNodeRenderer = memo(function MemoizedTNodeRenderer(
-  props: TNodeRendererProps<any>
-): ReactElement | null {
+const TNodeRenderer = memo(function MemoizedTNodeRenderer({
+  propsFromParent = { collapsedMarginTop: null },
+  ...props
+}: TNodeRendererProps<any>): ReactElement | null {
   const { tnode } = props;
   const sharedProps = useSharedProps();
   const renderRegistry = useRendererRegistry();
   const TNodeChildrenRenderer = useTNodeChildrenRenderer();
   const tnodeProps = {
     ...props,
+    propsFromParent,
     TNodeChildrenRenderer,
     sharedProps
   };
+
   const renderer =
     tnode.type === 'block' || tnode.type === 'document'
       ? TDefaultBlockRenderer
@@ -66,10 +69,11 @@ const TNodeRenderer = memo(function MemoizedTNodeRenderer(
     tnodeProps,
     renderer as any
   );
+
   switch (tnode.type) {
     case 'empty':
       return renderEmptyContent(assembledProps);
-    case 'text':
+    case 'text': {
       const InternalTextRenderer = renderRegistry.getInternalTextRenderer(
         props.tnode.tagName
       );
@@ -77,9 +81,7 @@ const TNodeRenderer = memo(function MemoizedTNodeRenderer(
       if (InternalTextRenderer) {
         return React.createElement(InternalTextRenderer, tnodeProps);
       }
-      // If ghost line prevention is enabled and the text data is empty, render
-      // nothing to avoid React Native painting a 20px height line.
-      // See also https://git.io/JErwX
+
       if (
         tnodeProps.tnode.data === '' &&
         tnodeProps.sharedProps.enableExperimentalGhostLinesPrevention
@@ -87,9 +89,8 @@ const TNodeRenderer = memo(function MemoizedTNodeRenderer(
         return null;
       }
       break;
-    case 'phrasing':
-      // When a TPhrasing node is anonymous and has only one child, its
-      // rendering amounts to rendering its only child.
+    }
+    case 'phrasing': {
       if (
         tnodeProps.sharedProps.bypassAnonymousTPhrasingNodes &&
         tnodeProps.tnode.tagName == null &&
@@ -99,9 +100,7 @@ const TNodeRenderer = memo(function MemoizedTNodeRenderer(
           tnode: props.tnode
         });
       }
-      // If ghost line prevention is enabled and the tnode is an anonymous empty
-      // phrasing node, render nothing to avoid React Native painting a 20px
-      // height line. See also https://git.io/JErwX
+
       if (
         tnodeProps.sharedProps.enableExperimentalGhostLinesPrevention &&
         tnodeProps.tnode.tagName == null &&
@@ -110,25 +109,18 @@ const TNodeRenderer = memo(function MemoizedTNodeRenderer(
         return null;
       }
       break;
+    }
   }
+
   const renderFn =
     tnode.type === 'block' || tnode.type === 'document'
       ? renderBlockContent
       : renderTextualContent;
+
   return Renderer === null
     ? renderFn(assembledProps)
     : React.createElement(Renderer as any, assembledProps);
 });
-
-// const defaultProps: Required<Pick<TNodeRendererProps<any>, 'propsFromParent'>> =
-//   {
-//     propsFromParent: {
-//       collapsedMarginTop: null
-//     }
-//   };
-
-// @ts-expect-error default props must be defined
-// TNodeRenderer.defaultProps = defaultProps;
 
 export {
   TDefaultBlockRenderer,

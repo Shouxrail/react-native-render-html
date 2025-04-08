@@ -8,13 +8,9 @@ import defaultSystemFonts from './defaultSystemFonts';
 
 const defaultTRenderEngine = {} as any;
 
-const TRenderEngineContext =
-  React.createContext<TRenderEngine>(defaultTRenderEngine);
+const TRenderEngineContext = React.createContext<TRenderEngine>(defaultTRenderEngine);
 
-export const tRenderEngineProviderPropTypes: Record<
-  keyof TRenderEngineConfig,
-  any
-> = {
+export const tRenderEngineProviderPropTypes: Record<keyof TRenderEngineConfig, any> = {
   customHTMLElementModels: PropTypes.object.isRequired,
   enableCSSInlineProcessing: PropTypes.bool,
   enableUserAgentStyles: PropTypes.bool,
@@ -41,10 +37,6 @@ export const tRenderEngineProviderPropTypes: Record<
   selectDomRoot: PropTypes.func
 };
 
-/**
- * Default fallback font for special keys such as 'sans-serif', 'monospace',
- * 'serif', based on current platform.
- */
 export const defaultFallbackFonts = {
   'sans-serif': Platform.select({ ios: 'system', default: 'sans-serif' }),
   monospace: Platform.select({ ios: 'Menlo', default: 'monospace' }),
@@ -70,65 +62,67 @@ export const defaultTRenderEngineProviderProps: TRenderEngineConfig = {
 
 /**
  * Use the ambient transient render engine.
- *
- * @returns The ambient transient render engine.
- *
- * @public
  */
 export function useAmbientTRenderEngine() {
   const engine = React.useContext(TRenderEngineContext);
-  if (
-    typeof __DEV__ === 'boolean' &&
-    __DEV__ &&
-    engine === defaultTRenderEngine
-  ) {
+  if (typeof __DEV__ === 'boolean' && __DEV__ && engine === defaultTRenderEngine) {
     console.error('TRenderEngineProvider is missing in the render tree.');
   }
   return engine;
 }
 
 /**
- * A react component to share a {@link TRenderEngine} instance across different
- * rendered contents via {@link RenderHTMLSource}. This can significantly enhance
- * performance in applications with potentially dozens or hundreds of distinct
- * rendered snippets such as chat apps.
- *
- * @param props - Pass engine config here.
+ * Share a TRenderEngine instance via React context.
  */
 export default function TRenderEngineProvider({
   children,
-  ...config
-}: PropsWithChildren<TRenderEngineConfig>): ReactElement {
-  config = {
-    htmlParserOptions: {
-      decodeEntities: true
-    },
-    emSize: 14,
-    ignoredDomTags: [],
-    ignoredStyles: [],
-    baseStyle: { fontSize: 14 },
-    tagsStyles: {},
-    classesStyles: {},
-    enableUserAgentStyles: true,
-    enableCSSInlineProcessing: true,
-    customHTMLElementModels: {},
-    fallbackFonts: defaultFallbackFonts,
-    systemFonts: defaultSystemFonts
-  };
-  const engine = useTRenderEngine(config);
+  htmlParserOptions = { decodeEntities: true },
+  emSize = 14,
+  ignoredDomTags = [],
+  ignoredStyles = [],
+  baseStyle = { fontSize: 14 },
+  tagsStyles = {},
+  classesStyles = {},
+  enableUserAgentStyles = true,
+  enableCSSInlineProcessing = true,
+  customHTMLElementModels = {},
+  fallbackFonts = defaultFallbackFonts,
+  systemFonts = defaultSystemFonts,
+  idsStyles,
+  ignoreDomNode,
+  domVisitors,
+  allowedStyles,
+  setMarkersForTNode,
+  dangerouslyDisableHoisting,
+  dangerouslyDisableWhitespaceCollapsing,
+  selectDomRoot
+}: PropsWithChildren<Partial<TRenderEngineConfig>>): ReactElement {
+  const engine = useTRenderEngine({
+    htmlParserOptions,
+    emSize,
+    ignoredDomTags,
+    ignoredStyles,
+    baseStyle,
+    tagsStyles,
+    classesStyles,
+    enableUserAgentStyles,
+    enableCSSInlineProcessing,
+    customHTMLElementModels,
+    fallbackFonts,
+    systemFonts,
+    idsStyles,
+    ignoreDomNode,
+    domVisitors,
+    allowedStyles,
+    setMarkersForTNode,
+    dangerouslyDisableHoisting,
+    dangerouslyDisableWhitespaceCollapsing,
+    selectDomRoot
+  });
+
   return (
     <TRenderEngineContext.Provider value={engine}>
       {children}
     </TRenderEngineContext.Provider>
   );
 }
-
-/**
- * @ignore
- */
-// TRenderEngineProvider.defaultProps = defaultTRenderEngineProviderProps;
-
-/**
- * @ignore
- */
-// TRenderEngineProvider.propTypes = tRenderEngineProviderPropTypes;
