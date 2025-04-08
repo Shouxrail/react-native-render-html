@@ -34,14 +34,25 @@ async function optimizeSvgFile(assetName) {
     throw new Error(resultPass1.error);
   }
 
+  await fs.mkdir(targetDemoDir, { recursive: true }); // 🔧 ensure folders exist
+  await fs.mkdir(targetWebsiteDir, { recursive: true });
+
   await fs.writeFile(path.join(targetDemoDir, assetName), resultPass1.data);
   await fs.writeFile(path.join(targetWebsiteDir, assetName), resultPass1.data);
 }
 
 async function run() {
-  const assets = await fs.readdir(sourceDir);
-  const targetDemoTasks = assets.map((asset) => optimizeSvgFile(asset));
-  return Promise.all(targetDemoTasks);
+  try {
+    const assets = await fs.readdir(sourceDir);
+    const targetDemoTasks = assets.map((asset) => optimizeSvgFile(asset));
+    await Promise.all(targetDemoTasks);
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      console.warn(`[svg-optimize] Skipping: Source folder '${sourceDir}' not found.`);
+    } else {
+      throw err;
+    }
+  }
 }
 
 run().catch((e) => console.error(e));
