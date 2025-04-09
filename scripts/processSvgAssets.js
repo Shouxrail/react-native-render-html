@@ -7,14 +7,23 @@ const targetDemoDir = 'apps/discovery/assets/svg';
 const targetWebsiteDir = 'apps/website/src/svg';
 
 const configPluginsFirstPass = [
+  // Explicit plugins first
+  'minifyStyles',
+  {
+    name: 'inlineStyles',
+    params: {
+      onlyMatchedOnce: false
+    }
+  },
+  'convertStyleToAttrs',
+
+  // Then include the default preset
   {
     name: 'preset-default',
     params: {
       overrides: {
-        convertColors: { currentColor: true },
-        minifyStyles: true,
-        inlineStyles: { onlyMatchedOnce: false },
-        convertStyleToAttrs: true
+        // Optional: override specific defaults
+        convertColors: { currentColor: true }
       }
     }
   }
