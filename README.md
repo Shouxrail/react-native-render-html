@@ -145,11 +145,11 @@ You like to learn by example? We have a tutorial from which the demo GIF has bee
 
 ## :notebook: Changelog
 
-The changelog is available here: [packages/render-html/CHANGELOG.md](./packages/render-html/CHANGELOG.md).
+The changelog is available here: [packages/render-html/CHANGELOG.md](https://github.com/meliorence/react-native-render-html/blob/master/packages/render-html/CHANGELOG.md).
 
 ## :bulb: Help
 
-Please refer to [our dedicated document](./HELP.adoc).
+Please refer to [our dedicated document](https://github.com/meliorence/react-native-render-html/blob/master/HELP.adoc).
 
 ## 👥 Community
 
@@ -157,7 +157,7 @@ You're always welcome to join our [discord channel](https://discord.gg/dbEMMJM) 
 
 ## :pencil: Contributing
 
-Check-out our [contributing guide](./CONTRIBUTING.adoc).
+Check-out our [contributing guide](https://github.com/meliorence/react-native-render-html/blob/master/CONTRIBUTING.adoc).
 
 - You can report bugs in [our Issue Tracker](https://github.com/meliorence/react-native-render-html/issues);
 - We handle Feature Requests [in our Canny board](https://native-html.canny.io/features).
