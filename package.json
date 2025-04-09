@@ -21,8 +21,7 @@
     "process-svg-assets": "node scripts/processSvgAssets.js",
     "postinstall": "yarn process-svg-assets",
     "publish:website": "yarn build:docs && GIT_USER=$USER USE_SSH=true yarn workspace website deploy",
-    "publish:discovery": "yarn workspace discovery publish",
-    "build": "tsc"
+    "publish:discovery": "yarn workspace discovery publish"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.1",
