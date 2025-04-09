@@ -5487,15 +5487,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-native@npm:^0.73.0":
-  version: 0.73.0
-  resolution: "@types/react-native@npm:0.73.0"
-  dependencies:
-    react-native: "*"
-  checksum: a764ca5d876dae3c109da449f736c44271b3b236d0d6e836c078247af1419f6d851600c56bb0c26f3e0d1b4be6eaac56b65c1f74ad0f0d05baf8b65dd1d5c597
-  languageName: node
-  linkType: hard
-
 "@types/react-native@npm:~0.64.12":
   version: 0.64.17
   resolution: "@types/react-native@npm:0.64.17"
@@ -5561,15 +5552,6 @@ __metadata:
     "@types/scheduler": "*"
     csstype: ^3.0.2
   checksum: 89e80ee8e08988abca0266e5e131f57b2e18f326bebfa0ed0a06b0bca29621a5a8202d617254a053f659b9c18090c52cae0aa475a6c6036b8858030f1d448e47
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:^19.1.0":
-  version: 19.1.0
-  resolution: "@types/react@npm:19.1.0"
-  dependencies:
-    csstype: ^3.0.2
-  checksum: 7dd7e021897509a68672ab38c268d2f1f519306ade66cc12ffce4dd46e9d2b4224ab49e0b1191b17ac5eceafc65d76e987d6c5b0679224ddbb46f8debce5decc
   languageName: node
   linkType: hard
 
@@ -19516,8 +19498,6 @@ fsevents@^1.2.7:
     "@commitlint/config-conventional": ^12.1.1
     "@react-native-community/eslint-config": ^3.0.0
     "@tsconfig/react-native": ^1.0.3
-    "@types/react": ^19.1.0
-    "@types/react-native": ^0.73.0
     "@typescript-eslint/eslint-plugin": ^4.29.2
     commitlint: ^12.1.1
     conditional-type-checks: ^1.0.5
@@ -19530,7 +19510,6 @@ fsevents@^1.2.7:
     metro-react-native-babel-preset: ^0.66.0
     prettier: ^2.3.1
     svgo: ^2.3.0
-    typescript: ^5.8.3
   languageName: unknown
   linkType: soft
 
@@ -22774,16 +22753,6 @@ typescript@4.2.2:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.8.3":
-  version: 5.8.3
-  resolution: "typescript@npm:5.8.3"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: cb1d081c889a288b962d3c8ae18d337ad6ee88a8e81ae0103fa1fecbe923737f3ba1dbdb3e6d8b776c72bc73bfa6d8d850c0306eed1a51377d2fccdfd75d92c4
-  languageName: node
-  linkType: hard
-
 "typescript@patch:typescript@4.2.2#~builtin<compat/typescript>":
   version: 4.2.2
   resolution: "typescript@patch:typescript@npm%3A4.2.2#~builtin<compat/typescript>::version=4.2.2&hash=701156"
@@ -22791,16 +22760,6 @@ typescript@4.2.2:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 2ea53f587f80083e0f184f552c044233fe07c2b5b7f04d2aaa8bd495f1f19822dbb27f3f060a2c6947240278045659ca00f1e4dea0d7e6f86ed3abd691796229
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@^5.8.3#~builtin<compat/typescript>":
-  version: 5.8.3
-  resolution: "typescript@patch:typescript@npm%3A5.8.3#~builtin<compat/typescript>::version=5.8.3&hash=701156"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 1b503525a88ff0ff5952e95870971c4fb2118c17364d60302c21935dedcd6c37e6a0a692f350892bafcef6f4a16d09073fe461158547978d2f16fbe4cb18581c
   languageName: node
   linkType: hard
 
