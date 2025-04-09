@@ -1,6 +1,6 @@
 const fs = require('fs/promises');
 const path = require('path');
-const { extendDefaultPlugins, optimize } = require('svgo');
+const { optimize } = require('svgo');
 
 const sourceDir = 'assets/doc/svg';
 const targetDemoDir = 'apps/discovery/assets/svg';
