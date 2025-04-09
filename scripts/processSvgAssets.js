@@ -6,22 +6,19 @@ const sourceDir = 'assets/doc/svg';
 const targetDemoDir = 'apps/discovery/assets/svg';
 const targetWebsiteDir = 'apps/website/src/svg';
 
-const configPluginsFirstPass = extendDefaultPlugins([
-  { name: 'convertColors', active: true },
-  { name: 'minifyStyles', active: true },
+const configPluginsFirstPass = [
   {
-    name: 'inlineStyles',
-    active: true,
+    name: 'preset-default',
     params: {
-      onlyMatchedOnce: false
+      overrides: {
+        convertColors: { currentColor: true },
+        minifyStyles: true,
+        inlineStyles: { onlyMatchedOnce: false },
+        convertStyleToAttrs: true
+      }
     }
-  },
-  {
-    name: 'convertStyleToAttrs',
-    active: true,
-    params: {}
   }
-]);
+];
 
 async function optimizeSvgFile(assetName) {
   const sourceFile = path.join(sourceDir, assetName);
